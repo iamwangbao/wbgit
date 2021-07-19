@@ -51,7 +51,7 @@ public class Main {
     path1.getdownloadpath();
     path1.getdepositpath();
     
-    
+    global.filesize=Filesize;
     global.Speed=speed1;
     global.depositpath=path1.depositpath;
     global.filename=file1.filename;
@@ -86,6 +86,7 @@ public class Main {
         HttpRequest.downLoadFromUrl(path1.downloadpath,file1.filename+'.'+file1.filetype,path1.depositpath,token);
         
        // speed1.getnowSpeed();
+        global.Speed.getnowSpeed();
         System.out.println("下载完成");
         time1.setendtime(); //读取下载完成的时间
         

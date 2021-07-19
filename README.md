@@ -2,6 +2,12 @@
 
 
 
+改动1：添加了进度显示，更正byte和KB的单位错误
+
 
 
 At present, only the download function is completed. After running the program, enter the URL, file name, file suffix and file storage location to download. The download speed will be displayed in the download, and the download start time and end time will be displayed when the download is completed. It is expected to join the download progress display and complete the multi-threaded function (multi thread downloads multiple files, or a single file is divided into multiple parts and downloaded by multi thread respectively).
+
+
+
+Change 1: add progress display, correct byte and KB unit error

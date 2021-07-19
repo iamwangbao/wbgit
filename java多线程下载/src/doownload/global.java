@@ -8,6 +8,7 @@ public class global {
     public static String filetype; //文件类型
     public static String filename;//文件名称
     public static time Time;//文件名称
+    public static long filesize=0;//文件大小
         
 } 
 

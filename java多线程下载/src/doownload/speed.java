@@ -25,7 +25,9 @@ public class speed {
 		this.nowSize=getFileLength3(file1);
 		this.nowSpeed=this.nowSize-this.upnowSize;
 		this.upnowSize=this.nowSize;
-		System.out.print("下载速度为："+this.nowSpeed +"byte"+ "/s" +'\n');
+		System.out.print("下载速度为："+this.nowSpeed +"KB"+ "/s" +'\n');
+		
+		System.out.print("当前下载进度为："+String.format("%.2f",((this.nowSize*1.0)/(global.filesize*1.0))*100) +"%" +'\n');
 	/*	
 		if(this.nowSpeed==0)
 		{
@@ -53,7 +55,7 @@ public class speed {
             fis = new FileInputStream(file);
             fileChannel = fis.getChannel();
         }
-        System.out.println("文件"+file.getName()+"的大小为:"+fileChannel.size()+"byte");
+        System.out.println("文件"+file.getName()+"的大小为:"+fileChannel.size()+"KB");
         return fileChannel.size();
     }
     
