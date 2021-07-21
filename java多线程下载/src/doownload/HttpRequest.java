@@ -1,28 +1,12 @@
 package doownload;
 
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.List;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.io.File;
-import java.io.IOException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class HttpRequest {
     /**
@@ -33,39 +17,6 @@ public class HttpRequest {
      * @throws IOException
      * @throws InterruptedException 
      */
-    public static void  downLoadFromUrl(String urlStr,String fileName,String savePath,String toekn) throws IOException, InterruptedException{
-        URL url = new URL(urlStr);
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        //设置超时间为3秒
-        conn.setConnectTimeout(3*1000);
-        //防止屏蔽程序抓取而返回403错误
-        conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
-        conn.setRequestProperty("lfwywxqyh_token",toekn);
-
-        //得到输入流
-        InputStream inputStream = conn.getInputStream();
-        //获取自己数组
-        byte[] getData = readInputStream(inputStream);
-        
-        //文件保存位置
-        File saveDir = new File(savePath);
-        if(!saveDir.exists()){
-            saveDir.mkdir();
-        }
-        File file = new File(saveDir+File.separator+fileName);
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(getData);
-        if(fos!=null){
-            fos.close();
-        }
-        if(inputStream!=null){
-            inputStream.close();
-        }
-
-
-     //   System.out.println("info:"+url+" download success"); 提示该链接下载完成
-
-    }
 
 
     
@@ -76,36 +27,84 @@ public class HttpRequest {
      * @throws IOException
      * @throws InterruptedException 
      */
-    public static  byte[] readInputStream(InputStream inputStream) throws IOException, InterruptedException {
-        byte[] buffer = new byte[1024];
-        int len = 0;
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    public static  void readInputStream() throws IOException, InterruptedException {
+    	URL[] url=new URL[10];
+    	HttpURLConnection[] conn=new HttpURLConnection[10];
+    	InputStream[] inputStream=new InputStream[10];
+    	time time1 =new time();
+    	for(int i=0;i<global.downnumber;i++) {
+        url[i] = new URL(global.downloadpath[i]);
+        conn[i] = (HttpURLConnection)url[i].openConnection();
+        //设置超时间为3秒
+        conn[i].setConnectTimeout(3*1000);
+        //防止屏蔽程序抓取而返回403错误
+        conn[i].setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
+        conn[i].setRequestProperty("lfwywxqyh_token",global.token);
+        inputStream[i] = conn[i].getInputStream();
+    	}
+    	
         
-        File saveDir = new File(global.depositpath);
-        File file = new File(saveDir+File.separator+global.filename+'.'+global.filetype);
-        FileOutputStream fos = new FileOutputStream(file);
+      
+
+        //得到输入流
+       
+    	
+    	//多个文件单个线程下载
+    	///////////////
+        byte[] buffer = new byte[1024];
+      
+        
+        File[] saveDir = new File[10];
+        File[] file = new File[10];
+        FileOutputStream[] fos = new FileOutputStream[10];
+        
+        for(int i=0;i<global.downnumber;i++) {
+         saveDir[i] = new File(global.depositpath[i]);
+         file[i] = new File(saveDir[i]+File.separator+global.filename[i]+'.'+global.filetype[i]);
+        
+         fos[i] = new FileOutputStream(file[i]);
+        }
         
         long time_s =System.currentTimeMillis()/1000;
         long time_s2 =System.currentTimeMillis()/1000;
-        while((len = inputStream.read(buffer)) != -1) {
-            bos.write(buffer, 0, len);  //数据流写入数组，完全下载后再传递，传递的数据将一次性写入文件
+        int len = 0;
+        
+        for(int i=0;i<global.downnumber;i++) {
+            time1.setstarttime();//读取开始下载的时间  
+        while((len = inputStream[i].read(buffer)) != -1) {
             
-           
-            fos.write(buffer); //数据流写入文件
+            fos[i].write(buffer); //数据流写入文件
+            
             
             time_s2 =System.currentTimeMillis()/1000;
             
             if(time_s2-time_s>=1)
             {
-            global.Speed.getnowSpeed();
+            global.Speed.getnowSpeed(i);
             time_s=time_s2;
             }
         }
-               
-        fos.close();
-        bos.close();
-        return bos.toByteArray();
+        global.Speed.getnowSpeed(i);
+        System.out.println(global.filename[i]+'.'+global.filetype[i]+"下载完成");
+        time1.setendtime(); //读取下载完成的时间
+        
+        time1.getstarttime(i);
+        time1.getendtime(i);   
+        
+      //  TimeUnit.MILLISECONDS.sleep(3000);//MILLISECONDS表示以毫秒为单位延时
+       
+        }
+ 
+        
+        for(int i=0;i<global.downnumber;i++) {
+        if(fos[i]!=null){
+            fos[i].close();
+        }
+        if(inputStream[i]!=null){
+            inputStream[i].close();
+        }
+        }
     }
-
+    
 
 }

@@ -11,23 +11,37 @@ import java.util.concurrent.TimeUnit;
 public class speed {
 
 	public long nowSpeed;
-	public long nowSize=0;
-	public long upnowSize=0;
-	public void getnowSpeed() throws IOException, InterruptedException
+	public long nowSize;
+	public long upnowSize;
+	public void getnowSpeed(int i) throws IOException, InterruptedException
 	{
+
+		int k=0;
+		File[] file1 = new File[10];
 		
 		/*
 		 * 检测下载文件当前大小（当前大小-前1秒的大小）来判断每秒的下载速度
 		 */
-		//while(true) {
-		//TimeUnit.MILLISECONDS.sleep(1000);
-		File file1 =new File(global.file);
-		this.nowSize=getFileLength3(file1);
+
+	
+		if(k!=i) //当下载下一个文件时，将上一次得到的文件大小清0
+		{
+			this.nowSize=0;
+			this.upnowSize=0;
+			k=i;
+		}
+		
+		 file1[i] =new File(global.file[i]);
+			
+		this.nowSize=getFileLength3(file1[i]);
+		
 		this.nowSpeed=this.nowSize-this.upnowSize;
 		this.upnowSize=this.nowSize;
-		System.out.print("下载速度为："+this.nowSpeed +"KB"+ "/s" +'\n');
 		
-		System.out.print("当前下载进度为："+String.format("%.2f",((this.nowSize*1.0)/(global.filesize*1.0))*100) +"%" +'\n');
+	
+		System.out.print(global.filename[i]+'.'+global.filetype[i]+"下载速度为："+this.nowSpeed +"KB"+ "/s" +'\n');
+		System.out.print(global.filename[i]+'.'+global.filetype[i]+"当前下载进度为："+String.format("%.2f",((this.nowSize*1.0)/(global.filesize[i]*1.0))*100) +"%" +'\n');
+		
 	/*	
 		if(this.nowSpeed==0)
 		{

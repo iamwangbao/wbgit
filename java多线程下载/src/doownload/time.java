@@ -2,9 +2,9 @@ package doownload;
 import java.text.SimpleDateFormat;
 import java.util.Date; //导入时间包
 public class time {
-	public  String starttime; //开始时间
-	public  String endtime; //结束时间
-	public  String estimatetime; //预估时间
+	public  String[] starttime=new String[10]; //开始时间
+	public  String[] endtime=new String[10]; //结束时间
+	public  String[] estimatetime=new String[10]; //预估时间
 	
 	   public String formattime(Date dNow) { //格式化时间格式为年-月-日-时-分-秒
 		   
@@ -19,7 +19,8 @@ public class time {
 	{
 		 Date date = new Date();
 		 //当开始下载时，获取一次时间作为开始时间
-		 this.starttime=formattime(date);
+		 for(int i=0;i<global.downnumber;i++)
+		 this.starttime[i]=formattime(date);
 
 				 
 	}
@@ -29,18 +30,21 @@ public class time {
 		 Date date = new Date();
 	
 		//当结束下载时，获取一次时间作为结束时间
-		 this.endtime =formattime(date);
+		 for(int i=0;i<global.downnumber;i++)
+		 this.endtime[i] =formattime(date);
 		 //预估时间=剩余文件大小/当前下载速度
 		 
 	}
 	
-	public void getstarttime() //打印开始时间
+	public void getstarttime(int i) //打印开始时间
 	{
-	 System.out.print("开始时间是："+this.starttime +'\n');
+		
+	 System.out.print(global.filename[i]+'.'+global.filetype[i]+"开始时间是："+this.starttime[i] +'\n');
 	}
 	
-	public void getendtime() //打印结束时间
+	public void getendtime(int i) //打印结束时间
 	{
-	 System.out.print("结束时间是："+this.endtime +'\n');
+		
+	 System.out.print(global.filename[i]+'.'+global.filetype[i]+"结束时间是："+this.endtime[i] +'\n');
 	}
 }

@@ -1,5 +1,6 @@
 package doownload;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -11,95 +12,116 @@ public class Main {
 	public static  Scanner input = new Scanner(System.in);
     
 	public static void main(String[] args) throws IOException, InterruptedException {
-    // write your code here
+
     	
-    	
-    	String Filename; //文件名
-    	String Filetype;  //文件类型
-    	String Depositpath;  //存放路径
-    	String Downloadpath; //下载路径
-    	long Filesize;//文件大小
-    //	String starttime; //开始时间
-    //	String endtime; //结束时间
-      //String url="http://127.0.0.1:9001/abc/notice/export?startDate=2017-1-27&endDate=2017-12-31";
+		 MyThread mt1 = new MyThread("线程A ") ;    // 实例化对象
+	
+
+	        
+	        
+    	String[] Filename = new String[10]; //文件名
+    	String[] Filetype = new String[10];;  //文件类型
+    	String[] Depositpath = new String[10];;  //存放路径
+    	String[] Downloadpath = new String[10];; //下载路径
+    	long[] Filesize = new long[10];;//文件大小
+    	int downnumber=0;
+    	 boolean end =false;
+
        
     	 file file1=new file();
     	 path path1=new path();
-    	 time time1 =new time();
+
     	 speed speed1=new speed();
+    	 
+    	 do {
+    		 int i=downnumber;
     System.out.println("请输入下载链接：");
-    Downloadpath=input.next();
-    path1.setdownloadpath(Downloadpath);
+    Downloadpath[i]=input.next();
+   
     
     System.out.println("请输入文件名：");
-    Filename=input.next();
-    file1.setfilename(Filename);
+    Filename[i]=input.next();
+    
     
     System.out.println("请输入文件类型（后缀名）：");
-    Filetype=input.next();
-    file1.setfiletype(Filetype);
+    Filetype[i]=input.next();
+    
     
     System.out.println("请输入存放地址：");
-    Depositpath=input.next();
-    path1.setdepositpath(Depositpath);
-    
-    global.file =path1.depositpath+"\\"+file1.filename+'.'+file1.filetype;
-  System.out.println(global.file);
-    Filesize=file1.setfilesize(file1.getFileLength( Downloadpath));
-    //  System.out.println(file1.filesize);
+    Depositpath[i]=input.next();
+	  
+	  downnumber=downnumber+1;
+	  
+	  int end1=0;
+	  System.out.println("是否结束输入？1/0");
+	  end1=input.nextInt();
+	  
+	  if(end1==1)
+	  {
+		  end=false;
+	  }
+	  else
+	  {
+		  end=true;
+	  }
+	  
+	  if(downnumber>10)
+	  {
+		  System.out.println("输入信息的数量不能大于10组！");
+		  end=false;
+	  }
+	  
+    	 }while(end==true);
+    	 
+    	 global.downnumber=downnumber;
+    	 path1.setdownloadpath(Downloadpath);
+    	 file1.setfilename(Filename);
+    	 file1.setfiletype(Filetype);
+    	 path1.setdepositpath(Depositpath);
+    	
+   
+    	 for(int i=0;i<global.downnumber;i++) {	  
+    Filesize[i]=file1.setfilesize(file1.getFileLength( Downloadpath[i]));
+    	 }
+    	 
+    	 for(int i=0;i<global.downnumber;i++) {	 
+    		    global.filesize[i]=Filesize[i];
+    		    global.Speed=speed1;
+    		    global.depositpath[i]=path1.depositpath[i];
+    		    global.filename[i]=file1.filename[i];
+    		    global.filetype[i]=file1.filetype[i];
+    		    global.downloadpath[i]=path1.downloadpath[i];
+    		    global.file[i] =path1.depositpath[i]+File.separator+file1.filename[i]+'.'+file1.filetype[i];
+    		 	  System.out.println(global.file[i]);
+    		    }
+    	 
     file1.getfile();
     path1.getdownloadpath();
     path1.getdepositpath();
-    
-    global.filesize=Filesize;
-    global.Speed=speed1;
-    global.depositpath=path1.depositpath;
-    global.filename=file1.filename;
-    global.filetype=file1.filetype;
-    
+   
     file1.createFile();
     
     
-    
-    if(Filesize==0)
+    for(int i=0;i<global.downnumber;i++) { 
+    if(Filesize[i]==0)
     {
-    	System.out.println("检测到该文件大小为0，请确认URL是否正确");
-    return; //如果文件大小为零，结束程序
+    	System.out.println("检测到第"+i+"个文件大小为0，请确认URL是否正确");
+   
+    }
     }
     
         String token="v32Eo2Tw+qWI/eiKW3D8ye7l19mf1NngRLushO6CumLMHIO1aryun0/Y3N3YQCv/TqzaO/TFHw4=";
-       // String token="SiGBCH6QblUHs7NiouV09rL6uAA3Sv0cGicaSxJiC/78DoWIMzVbW6VCwwkymYsZaxndDkYqkm4=";
-        //测试路径"https://dldir1.qq.com/qqtv/TencentVideo11.24.1062.0.exe"，文件为腾讯视频.exe,存放路径为"D:\\360安全浏览器下载"
-        
-        /*
-          HttpRequest.downLoadFromUrl("https://dldir1.qq.com/qqtv/TencentVideo11.24.1062.0.exe","腾讯视频.exe","D:\\360安全浏览器下载",token);
-          System.out.println("下载完成");
-       */
   
-
+        global.token=token;
+       
+        
         
         //开始下载
-        if(Filename!=null && Filetype!=null && Depositpath!=null && Downloadpath!=null )
-        {
-        
-        time1.setstarttime();//读取开始下载的时间     
-        HttpRequest.downLoadFromUrl(path1.downloadpath,file1.filename+'.'+file1.filetype,path1.depositpath,token);
-        
-       // speed1.getnowSpeed();
-        global.Speed.getnowSpeed();
-        System.out.println("下载完成");
-        time1.setendtime(); //读取下载完成的时间
-        
-        time1.getstarttime();
-        time1.getendtime();
-        
-       
-        }
-        else
-        {
-        	System.out.println("请将信息输入完整");
-        }
 
+    //    HttpRequest.readInputStream(); //单线程下载
+      
+        mt1.start() ;   // 调用多线程主体开始下载
+ 
         
     }
 }

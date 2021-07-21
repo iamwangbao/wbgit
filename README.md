@@ -2,7 +2,9 @@
 
 
 
-改动1：添加了进度显示，更正byte和KB的单位错误
+改动1：添加了进度显示，更正byte和KB的单位错误 2021/07/18
+
+改动2：添加支持多个文件下载（设置最高下载十个，可以修改），添加单个线程顺序下载多个文件，并可以与多个线程下载单个文件后顺序完成多个文件下载进行对比。2021/07/22
 
 
 
@@ -10,4 +12,6 @@ At present, only the download function is completed. After running the program, 
 
 
 
-Change 1: add progress display, correct byte and KB unit error
+Change 1: add progress display, correct byte and KB unit error 2021/07/18
+
+Change 2: add support for multiple file downloads (set the maximum number of downloads to 10, which can be modified), add a single thread to download multiple files in sequence, and compare with multiple threads to download multiple files in sequence after downloading a single file. 2021/07/22
