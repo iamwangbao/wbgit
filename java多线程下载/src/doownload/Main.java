@@ -118,9 +118,21 @@ public class Main {
         
         //开始下载
 
-    //    HttpRequest.readInputStream(); //单线程下载
+      //  HttpRequest.readInputStream(); //单线程下载
       
         mt1.start() ;   // 调用多线程主体开始下载
+        
+        int x=0;
+        while(true)
+        {
+        	System.out.print("打印"+x+"\n");
+        	x+=1;
+        	
+        	if(x==30)
+        		break;
+        }
+        
+       
  
         
     }
