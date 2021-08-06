@@ -14,16 +14,16 @@ public class Main {
 	public static void main(String[] args) throws IOException, InterruptedException {
 
     	
-		 MyThread mt1 = new MyThread("线程A ") ;    // 实例化对象
+		 MyThread mt1 = new MyThread() ;    // 实例化对象
 	
 
 	        
 	        
-    	String[] Filename = new String[10]; //文件名
-    	String[] Filetype = new String[10];;  //文件类型
-    	String[] Depositpath = new String[10];;  //存放路径
-    	String[] Downloadpath = new String[10];; //下载路径
-    	long[] Filesize = new long[10];;//文件大小
+    	String[] Filename = new String[global.quantity]; //文件名
+    	String[] Filetype = new String[global.quantity];;  //文件类型
+    	String[] Depositpath = new String[global.quantity];;  //存放路径
+    	String[] Downloadpath = new String[global.quantity];; //下载路径
+    	long[] Filesize = new long[global.quantity];;//文件大小
     	int downnumber=0;
     	 boolean end =false;
 
@@ -65,7 +65,7 @@ public class Main {
 		  end=true;
 	  }
 	  
-	  if(downnumber>10)
+	  if(downnumber>global.quantity)
 	  {
 		  System.out.println("输入信息的数量不能大于10组！");
 		  end=false;
@@ -118,19 +118,11 @@ public class Main {
         
         //开始下载
 
-      //  HttpRequest.readInputStream(); //单线程下载
+      //  HttpRequest.readInputStream(); //整体下载
       
-        mt1.start() ;   // 调用多线程主体开始下载
+        mt1.run(); ;   // 调用开始分段下载
         
-        int x=0;
-        while(true)
-        {
-        	System.out.print("打印"+x+"\n");
-        	x+=1;
-        	
-        	if(x==30)
-        		break;
-        }
+       
         
        
  

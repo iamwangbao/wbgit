@@ -7,9 +7,9 @@ import java.io.File;
 
 
 public class file {
-	public String[] filetype=new String[10]; //文件类型
-	public long[] filesize=new long[10]; //文件大小
-	public String[] filename=new String[10]; //文件名字
+	public String[] filetype=new String[global.quantity]; //文件类型
+	public long[] filesize=new long[global.quantity]; //文件大小
+	public String[] filename=new String[global.quantity]; //文件名字
 	
 	public void setfiletype(String[] Filetype) //填写文件类型
 	{
@@ -74,9 +74,9 @@ public class file {
 		     */
 		    public void createFile(){  //创建文件
 		    	
-		    	String[] filenameTemp = new String[10];
-			    String[] fileName=new String[10];
-		    	String[] path=new String[10];
+		    	String[] filenameTemp = new String[global.quantity];
+			    String[] fileName=new String[global.quantity];
+		    	String[] path=new String[global.quantity];
 		    	  //生成文件路径  //文件路径+名称
 		    	for(int i=0;i<global.downnumber;i++) {
 			     path[i] = global.depositpath[i];

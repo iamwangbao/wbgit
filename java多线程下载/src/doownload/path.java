@@ -1,8 +1,8 @@
 package doownload;
 
 public class path {
-	public String[] downloadpath=new String[10]; //下载路径
-	public String[] depositpath=new String[10]; //存放路径
+	public String[] downloadpath=new String[global.quantity]; //下载路径
+	public String[] depositpath=new String[global.quantity]; //存放路径
 		
 	public void setdownloadpath(String[] Downloadpath) //填写下载路径
 	{

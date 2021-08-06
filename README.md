@@ -8,10 +8,10 @@
 
 
 
-At present, only the download function is completed. After running the program, enter the URL, file name, file suffix and file storage location to download. The download speed will be displayed in the download, and the download start time and end time will be displayed when the download is completed. It is expected to join the download progress display and complete the multi-threaded function (multi thread downloads multiple files, or a single file is divided into multiple parts and downloaded by multi thread respectively).
+改动3：编写时的错误思路使得多线程在当中没有作用，去除多线程。保留下载，改为多个文件整体顺序下载以及多个文件分段顺序下载。  2021/08/06
 
 
 
-Change 1: add progress display, correct byte and KB unit error 2021/07/18
+多线程下载可以去这个代码仓库看看
 
-Change 2: add support for multiple file downloads (set the maximum number of downloads to 10, which can be modified), add a single thread to download multiple files in sequence, and compare with multiple threads to download multiple files in sequence after downloading a single file. 2021/07/22
+https://github.com/iamwangbao/wbgit2

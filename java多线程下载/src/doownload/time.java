@@ -2,9 +2,9 @@ package doownload;
 import java.text.SimpleDateFormat;
 import java.util.Date; //导入时间包
 public class time {
-	public  String[] starttime=new String[10]; //开始时间
-	public  String[] endtime=new String[10]; //结束时间
-	public  String[] estimatetime=new String[10]; //预估时间
+	public  String[] starttime=new String[global.quantity]; //开始时间
+	public  String[] endtime=new String[global.quantity]; //结束时间
+	public  String[] estimatetime=new String[global.quantity]; //预估时间
 	
 	   public String formattime(Date dNow) { //格式化时间格式为年-月-日-时-分-秒
 		   

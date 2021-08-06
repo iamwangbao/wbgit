@@ -28,9 +28,9 @@ public class HttpRequest {
      * @throws InterruptedException 
      */
     public static  void readInputStream() throws IOException, InterruptedException {
-    	URL[] url=new URL[10];
-    	HttpURLConnection[] conn=new HttpURLConnection[10];
-    	InputStream[] inputStream=new InputStream[10];
+    	URL[] url=new URL[global.quantity];
+    	HttpURLConnection[] conn=new HttpURLConnection[global.quantity];
+    	InputStream[] inputStream=new InputStream[global.quantity];
     	time time1 =new time();
     	for(int i=0;i<global.downnumber;i++) {
         url[i] = new URL(global.downloadpath[i]);
@@ -54,9 +54,9 @@ public class HttpRequest {
         byte[] buffer = new byte[1024];
       
         
-        File[] saveDir = new File[10];
-        File[] file = new File[10];
-        FileOutputStream[] fos = new FileOutputStream[10];
+        File[] saveDir = new File[global.quantity];
+        File[] file = new File[global.quantity];
+        FileOutputStream[] fos = new FileOutputStream[global.quantity];
         
         for(int i=0;i<global.downnumber;i++) {
          saveDir[i] = new File(global.depositpath[i]);

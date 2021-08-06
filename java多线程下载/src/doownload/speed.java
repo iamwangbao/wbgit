@@ -17,7 +17,7 @@ public class speed {
 	{
 
 		int k=0;
-		File[] file1 = new File[10];
+		File[] file1 = new File[global.quantity];
 		
 		/*
 		 * 检测下载文件当前大小（当前大小-前1秒的大小）来判断每秒的下载速度
